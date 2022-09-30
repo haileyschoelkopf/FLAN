@@ -35,7 +35,7 @@ from flan import utils
 ShotConfig = few_shot.ShotConfig
 
 # This is a placeholder, for the paper we used an internal vocabulary and model.
-VOCAB_FILE = 'gs://t5-data/vocabs/mc4.250000.100extra/sentencepiece.model'
+VOCAB_FILE = '/fsx/hailey/jaxtest/t5-tokenizer/spiece.model'
 FLAN_VOCABULARY = seqio.SentencePieceVocabulary(VOCAB_FILE)
 
 FLAN_OUTPUT_FEATURES = {
@@ -217,7 +217,10 @@ def _process_wsc273(example):
 
 TASK_CONFIGS['wsc273'] = _TaskConfig(
     source=seqio.TfdsDataSource(
-        tfds_name='wsc273:2.0.0',  # Only the test split is available.
+        tfds_name='wsc273:1.0.0',  # Only the test split is available.
+        splits={
+            'test': 'test',
+        }
     ),
     preprocessors=[
         _process_wsc273,
